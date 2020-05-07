@@ -1,16 +1,28 @@
 import React from 'react';
 import Clock from './components/Clock.js'
+import Select from './components/Select.js'
 
-function Icon(props){
-  console.log(props);
-  return(
-    <div className={props.className}>
-      <img src={require("./assets/" + props.src)} alt={props.name}/>
-      {props.name}
+function App() {
+  return (
+    <div>
+      <Nav/>
+      <div className="text-5xl text-center font-medium mt-32">
+        Current Time
+        <Clock className="text-9xl"/>
+      </div>
+      <Select/>
     </div>
   );
 }
 
+function Icon(props){
+  return(
+    <a className={props.className} href={props.href}>
+      <img src={require("./assets/" + props.src)} alt={props.name}/>
+      {props.name}
+    </a>
+  );
+}
 function Nav(props){
   return (
   <div className="flex flex-row justify-between pt-6 px-12">
@@ -19,22 +31,10 @@ function Nav(props){
       <Icon src="nav/calendar.svg" name="Calendar"/>
     </div>
     <div className="flex flex-row text-center items-end">
-      <Icon className="mr-12" src="nav/statistic.svg" name="statistic"/>
-      <Icon src="nav/setting.svg" name="setting"/>
+      <Icon className="mr-12" src="nav/statistic.svg" name="Statistic"/>
+      <Icon src="nav/setting.svg" name="Setting"/>
     </div>
   </div>
-  );
-}
-
-function App() {
-  return (
-    <div>
-      <Nav/>
-      <div className="text-5xl">
-        Current Time
-      </div>
-      <Clock />
-    </div>
   );
 }
 
