@@ -1,9 +1,8 @@
 @tailwind base;
-
 @tailwind components;
 
-.test{
-    @apply text-xl;
+body{
+    @apply bg-purple-1 text-white;
 }
 
 @tailwind utilities;
