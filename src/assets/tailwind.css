@@ -1,0 +1,9 @@
+@tailwind base;
+
+@tailwind components;
+
+.test{
+    @apply text-xl;
+}
+
+@tailwind utilities;
