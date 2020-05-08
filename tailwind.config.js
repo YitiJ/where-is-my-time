@@ -4,7 +4,8 @@ module.exports = {
     colors:{
       white: "#FFFFFF",
       purple:{
-        1: "#675D78"
+        1: "#675D78",
+        2:"#B1B4C9",
       },
       blue:{
         1:"#DCE0F6",
