@@ -6,15 +6,15 @@ const AddTask = ({handleClose, handleAdd, show}) => {
       <div className="modal">
         <div className="modal-main rounded-lg text-gray-1">
             <label htmlFor="new" className="text-gray-1 text-4xl mx-8">Task Name:</label>
-            <input  id="new" className="h-20 w-1/2 my-20 border-blue-2 border-2 outline-none focus:shadow-outline rounded-lg text-3xl px-4" placeholder="Task Name"></input>
-            <button className="mx-8 text-3xl bg-blue-3 text-white rounded-md px-6 py-3" onClick={(e) => handleAdd(e,document.getElementById("new"))}>Add</button>
-            <button className="absolute top-0 right-0 p-4 text-2xl" onClick={handleClose}>Close</button>
+            <input  id="new" className="h-20 w-1/2 my-20 px-4 rounded-lg text-3xl border-2 border-blue-2 focusBorder" placeholder="Task Name"></input>
+            <button className="mx-8 px-6 py-3 text-3xl bg-blue-3 text-white rounded-md focusBorder" onClick={(e) => handleAdd(e,document.getElementById("new"))}>Add</button>
+            <button className="absolute top-0 right-0 p-4 text-2xl focusBorder rounded-lg" onClick={handleClose}>Close</button>
         </div>
       </div>
     );
 }
 const InputCard=({className})=>{
-    return (<input className={className + " text-center font-black rounded-md outline-none focus:shadow-outline"}
+    return (<input className={className + " text-center font-black rounded-md focusBorder"}
     maxLength="1"
     size="1"
     placeholder="0"/>);
@@ -25,12 +25,12 @@ const Duration = ({className,show}) => {
     return(
         <div className={className} id="duration">
             <label className="block font-medium text-2xl">Duration (hour:min)</label>
-            <InputCard className="mr-2 text-3xl w-12 h-16 px-3 py-4 text-gray-1 bg-blue-1 focus:bg-blue-2"/>
-            <InputCard className="mr-2 text-3xl w-12 h-16 px-3 py-4 text-gray-1 bg-blue-1 focus:bg-blue-2"/>
+            <InputCard className="mr-2 inputCard input-blue"/>
+            <InputCard className="mr-2 inputCard input-blue"/>
             <span className="mr-2 text-3xl font-bold">:</span>
-            <InputCard className="mr-2 text-3xl w-12 h-16 px-3 py-4 text-gray-1 bg-blue-1 focus:bg-blue-2"/>
-            <InputCard className="mr-6 text-3xl w-12 h-16 px-3 py-4 text-gray-1 bg-blue-1 focus:bg-blue-2"/>
-            <button className="bg-blue-3 rounded-md text-blue-4 px-12 py-3 text-2xl font-bold">Start</button>
+            <InputCard className="mr-2 inputCard input-blue"/>
+            <InputCard className="mr-6 inputCard input-blue"/>
+            <button className="px-12 py-3 bg-blue-3 rounded-md text-blue-4 text-2xl font-bold focusBorder">Start</button>
         </div>
     );
 }
@@ -73,7 +73,7 @@ class Selection extends React.Component{
         return (
             <div className="relative flex flex-col w-1/3 mx-auto">
                 <AddTask show={this.state.showNew} handleClose={this.hideModal} handleAdd={this.handleAdd}/>
-                <select className="h-20 flex-auto px-12 text-gray-1 text-3xl outline-none bg-blue-1 focus:bg-blue-2 rounded-lg focus:shadow-outline placeholder-gray-1"
+                <select className="flex-auto h-20 px-12 input-blue text-3xl focusBorder rounded-lg"
                 value={this.state.value} onChange={this.handleChange}>
                     <option value="" key="-1" disabled hidden>Please Choose...</option>
                     {this.state.options.map((obj)=>

@@ -648,12 +648,34 @@ body{
   --transform-translate-y: -50%;
 }
 
-.display-block {
-  display: block;
+.inputCard{
+  font-size: 1.875rem;
+  width: 3rem;
+  height: 4rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
-.display-none {
-  display: none;
+.focusBorder:focus{
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+}
+
+.input-blue:focus{
+  --bg-opacity: 1;
+  background-color: #CED2E8;
+  background-color: rgba(206, 210, 232, var(--bg-opacity));
+}
+
+.input-blue{
+  --text-opacity: 1;
+  color: #747474;
+  color: rgba(116, 116, 116, var(--text-opacity));
+  --bg-opacity: 1;
+  background-color: #DCE0F6;
+  background-color: rgba(220, 224, 246, var(--bg-opacity));
 }
 
 .space-y-0 > :not(template) ~ :not(template) {
