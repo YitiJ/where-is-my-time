@@ -4,8 +4,8 @@ const Modal = ({handleClose, handleAdd, show}) => {
     if(!show) return (null);
     return (
       <div className="modal">
-        <div className="modal-main relative text-gray-1">
-            <label for="new" className="text-gray-1 text-4xl mx-8">Task Name:</label>
+        <div className="modal-main rounded-lg text-gray-1">
+            <label htmlFor="new" className="text-gray-1 text-4xl mx-8">Task Name:</label>
             <input  id="new" className="h-20 w-1/2 my-20 border-blue-2 border-2 outline-none focus:shadow-outline rounded-lg text-3xl px-4" placeholder="Task Name"></input>
             <button className="mx-8 text-3xl bg-blue-3 text-white rounded-md px-6 py-3" onClick={(e) => handleAdd(e,document.getElementById("new"))}>Add</button>
             <button className="absolute top-0 right-0 p-4 text-2xl" onClick={handleClose}>Close</button>
@@ -55,7 +55,7 @@ class Dropdown extends React.Component{
 
     handleChange(event){
         const options = event.target.options;
-        if(options[options.selectedIndex].getAttribute('data-key') == -2){
+        if(options[options.selectedIndex].getAttribute('data-key') === "-2"){
             this.showModal();
         }
         else{

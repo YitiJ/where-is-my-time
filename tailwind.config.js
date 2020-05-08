@@ -3,6 +3,7 @@ module.exports = {
   theme: {
     colors:{
       white: "#FFFFFF",
+      black: "#000000",
       purple:{
         1: "#675D78",
         2:"#B1B4C9",
@@ -21,6 +22,9 @@ module.exports = {
     extend: {
       fontSize:{
         '9xl': '7rem'
+      },
+      inset:{
+        '1/2':'50%'
       }
     },
   },
