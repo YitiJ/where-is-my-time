@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AddTask = ({handleClose, handleAdd, show}) => {
+const AddTaskModal = ({handleClose, handleAdd, show}) => {
     if(!show) return (null);
     return (
       <div className="modal">
@@ -72,7 +72,7 @@ class Selection extends React.Component{
     render(){
         return (
             <div className="relative flex flex-col w-1/3 mx-auto">
-                <AddTask show={this.state.showNew} handleClose={this.hideModal} handleAdd={this.handleAdd}/>
+                <AddTaskModal show={this.state.showNew} handleClose={this.hideModal} handleAdd={this.handleAdd}/>
                 <select className="flex-auto h-20 px-12 input-blue text-3xl focusBorder rounded-lg"
                 value={this.state.value} onChange={this.handleChange}>
                     <option value="" key="-1" disabled hidden>Please Choose...</option>
