@@ -6,8 +6,8 @@ const AddTaskModal = ({handleClose, handleAdd, show}) => {
       <div className="modal">
         <div className="modal-main rounded-lg text-gray-1">
             <label htmlFor="new" className="text-gray-1 text-4xl mx-8">Task Name:</label>
-            <input  id="new" className="h-20 w-1/2 my-20 px-4 rounded-lg text-3xl border-2 border-blue-2 focusBorder" placeholder="Task Name"></input>
-            <button className="mx-8 px-6 py-3 text-3xl bg-blue-3 text-white rounded-md focusBorder" onClick={(e) => handleAdd(e,document.getElementById("new"))}>Add</button>
+            <input  id="new" className="h-20 w-1/2 my-20 px-4 input-white text-3xl focusBorder" placeholder="Task Name"></input>
+            <button className="mx-8 px-6 py-3 text-3xl btn text-white font-medium focusBorder" onClick={(e) => handleAdd(e,document.getElementById("new"))}>Add</button>
             <button className="absolute top-0 right-0 p-4 text-2xl focusBorder rounded-lg" onClick={handleClose}>Close</button>
         </div>
       </div>
@@ -52,7 +52,7 @@ class Selection extends React.Component{
 
     render(){
         const startButton = this.state.showStart ?
-            <button className="mt-3 px-12 py-3 bg-blue-3 rounded-md text-blue-4 text-2xl font-bold focusBorder"
+            <button className="mt-3 px-12 py-3 btn text-blue-4 text-2xl font-bold focusBorder"
                 onClick={(event) => this.props.submitFn(event,this.selected)}>Start</button>
             : (null);
         return (

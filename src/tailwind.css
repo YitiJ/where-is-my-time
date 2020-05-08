@@ -25,7 +25,16 @@ body{
   @apply bg-blue-2;
 }
 
+.input-white{
+  @apply border-2 border-blue-2 rounded-lg;
+}
+
 .input-blue{
   @apply text-gray-1 bg-blue-1;
 }
+
+.btn{
+  @apply bg-blue-3 rounded-md;
+}
+
 @tailwind utilities;

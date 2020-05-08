@@ -669,6 +669,14 @@ body{
   background-color: rgba(206, 210, 232, var(--bg-opacity));
 }
 
+.input-white{
+  border-width: 2px;
+  --border-opacity: 1;
+  border-color: #CED2E8;
+  border-color: rgba(206, 210, 232, var(--border-opacity));
+  border-radius: 0.5rem;
+}
+
 .input-blue{
   --text-opacity: 1;
   color: #747474;
@@ -676,6 +684,13 @@ body{
   --bg-opacity: 1;
   background-color: #DCE0F6;
   background-color: rgba(220, 224, 246, var(--bg-opacity));
+}
+
+.btn{
+  --bg-opacity: 1;
+  background-color: #9FA9DC;
+  background-color: rgba(159, 169, 220, var(--bg-opacity));
+  border-radius: 0.375rem;
 }
 
 .space-y-0 > :not(template) ~ :not(template) {
