@@ -1,13 +1,13 @@
 import React from 'react';
 
-const AddTaskModal = ({handleClose, handleAdd, show}) => {
+const AddTaskModal = ({handleClose, handleAdd, show, reference}) => {
     if(!show) return (null);
     return (
       <div className="modal">
         <div className="modal-main rounded-lg text-gray-1">
             <label htmlFor="new" className="text-gray-1 text-4xl mx-8">Task Name:</label>
-            <input  id="new" className="h-20 w-1/2 my-20 px-4 input-white text-3xl focusBorder" placeholder="Task Name"></input>
-            <button className="mx-8 px-6 py-3 text-3xl btn text-white font-medium focusBorder" onClick={(e) => handleAdd(e,document.getElementById("new"))}>Add</button>
+            <input  ref={reference} id="new" className="h-20 w-1/2 my-20 px-4 input-white text-3xl focusBorder" placeholder="Task Name" onFocus={() => {reference.current.classList.remove("invalidInput");reference.current.placeholder = "Task Name"}}></input>
+            <button className="mx-8 px-6 py-3 text-3xl btn text-white font-medium focusBorder" onClick={(e) => handleAdd(e,reference)}>Add</button>
             <button className="absolute top-0 right-0 p-4 text-2xl focusBorder rounded-lg" onClick={handleClose}>Close</button>
         </div>
       </div>
@@ -23,6 +23,7 @@ class Selection extends React.Component{
         this.state = {value: "",showNew: false, showStart:false, options:options};
         this.handleChange = this.handleChange.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
+        this.modalInputRef = React.createRef();
     }
     showModal = () => {
         this.setState({ showNew: true });
@@ -42,11 +43,17 @@ class Selection extends React.Component{
             this.setState({value: event.target.value, showStart:true});
         }
     }
-    handleAdd(event,input){
+    handleAdd(event,ref){
+        var input = ref.current.value;
+        if(input.length == 0){
+            ref.current.placeholder = "Field cannot be empty";
+            ref.current.classList.add("invalidInput");
+            return;
+        }
         var options = this.state.options;
-        this.selected={name: input.value,key:options.length+1};
+        this.selected={name: input,key:options.length+1};
         options.push(this.selected);
-        this.setState({value: input.value,showStart:true,options:options});
+        this.setState({value: input,showStart:true,options:options});
         this.hideModal();
     }
 
@@ -57,7 +64,7 @@ class Selection extends React.Component{
             : (null);
         return (
             <div className="relative flex flex-col w-1/3 mx-auto">
-                <AddTaskModal show={this.state.showNew} handleClose={this.hideModal} handleAdd={this.handleAdd}/>
+                <AddTaskModal show={this.state.showNew} handleClose={this.hideModal} handleAdd={this.handleAdd} reference={this.modalInputRef}/>
                 <select className="flex-auto h-20 px-12 input-blue text-3xl focusBorder rounded-lg"
                 value={this.state.value} onChange={this.handleChange}>
                     <option value="" key="-1" disabled hidden>Please Choose...</option>

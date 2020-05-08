@@ -38,6 +38,14 @@ body{
   @apply text-gray-1 bg-blue-1;
 }
 
+.invalidInput{
+  @apply border-red-1;
+}
+.invalidInput::placeholder{
+  @apply text-red-1;
+}
+
+
 .btn{
   @apply bg-blue-3 rounded-md;
 }
