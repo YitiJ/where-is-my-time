@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Modal = ({handleClose, handleAdd, show}) => {
+const AddTask = ({handleClose, handleAdd, show}) => {
     if(!show) return (null);
     return (
       <div className="modal">
@@ -38,7 +38,7 @@ const Duration = ({className,show}) => {
 const options=[
 {name:"Homework",key:"1"},{name:"Minecraft", key:"2"}
 ];
-class Dropdown extends React.Component{
+class Selection extends React.Component{
     constructor(props){
         super(props);
         this.state = {value: "",showNew: false, showDuration:false, options:options};
@@ -72,7 +72,7 @@ class Dropdown extends React.Component{
     render(){
         return (
             <div className="relative flex flex-col w-1/3 mx-auto">
-                <Modal show={this.state.showNew} handleClose={this.hideModal} handleAdd={this.handleAdd}/>
+                <AddTask show={this.state.showNew} handleClose={this.hideModal} handleAdd={this.handleAdd}/>
                 <select className="h-20 flex-auto px-12 text-gray-1 text-3xl outline-none bg-blue-1 focus:bg-blue-2 rounded-lg focus:shadow-outline placeholder-gray-1"
                 value={this.state.value} onChange={this.handleChange}>
                     <option value="" key="-1" disabled hidden>Please Choose...</option>
@@ -87,4 +87,4 @@ class Dropdown extends React.Component{
     }
 }
 
-export default Dropdown;
+export default Selection;

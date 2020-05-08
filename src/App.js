@@ -1,6 +1,6 @@
 import React from 'react';
 import Clock from './components/Clock.js'
-import Dropdown from './components/Dropdown.js'
+import Selection from './components/Selection.js'
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
         Current Time
         <Clock className="text-9xl"/>
       </div>
-      <Dropdown/>
+      <Selection/>
     </div>
   );
 }
