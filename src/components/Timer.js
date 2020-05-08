@@ -18,7 +18,6 @@ class Clock extends React.Component{
   }
   componentWillUnmount(){
     clearInterval(this.timerID);
-    this.props.stopTimer();
   }
 
   tick(){
@@ -33,9 +32,14 @@ class Clock extends React.Component{
 
   render(){
     return(
-      <div className={this.props.className}>
-        {this.formatTime(this.state.time)}
-        <button onClick={this.props.stopTimer} className="borderFocus">End</button>
+      <div className={this.props.className + " text-2xl"}>
+        <div className="mt-10">
+          Doing: {this.props.task.name}
+        </div>
+        <div>
+          {this.formatTime(this.state.time)}
+        </div>
+        <button onClick={this.props.stopTimer} className="btn text-blue-4 font-bold py-1 px-4 mt-4 focusBorder">End</button>
       </div>
     );
   }

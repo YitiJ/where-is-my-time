@@ -25,6 +25,9 @@ module.exports = {
       },
       inset:{
         '1/2':'50%'
+      },
+      transitionProperty:{
+        'spacing': 'margin, padding',
       }
     },
   },

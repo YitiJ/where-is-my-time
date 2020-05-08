@@ -8315,6 +8315,10 @@ body{
   transition-property: transform;
 }
 
+.transition-spacing {
+  transition-property: margin, padding;
+}
+
 .ease-linear {
   transition-timing-function: linear;
 }
@@ -16016,6 +16020,10 @@ body{
 
   .sm\:transition-transform {
     transition-property: transform;
+  }
+
+  .sm\:transition-spacing {
+    transition-property: margin, padding;
   }
 
   .sm\:ease-linear {
@@ -23722,6 +23730,10 @@ body{
     transition-property: transform;
   }
 
+  .md\:transition-spacing {
+    transition-property: margin, padding;
+  }
+
   .md\:ease-linear {
     transition-timing-function: linear;
   }
@@ -31426,6 +31438,10 @@ body{
     transition-property: transform;
   }
 
+  .lg\:transition-spacing {
+    transition-property: margin, padding;
+  }
+
   .lg\:ease-linear {
     transition-timing-function: linear;
   }
@@ -39128,6 +39144,10 @@ body{
 
   .xl\:transition-transform {
     transition-property: transform;
+  }
+
+  .xl\:transition-spacing {
+    transition-property: margin, padding;
   }
 
   .xl\:ease-linear {
