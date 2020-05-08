@@ -646,6 +646,12 @@ body{
   transform: translateX(var(--transform-translate-x)) translateY(var(--transform-translate-y)) rotate(var(--transform-rotate)) skewX(var(--transform-skew-x)) skewY(var(--transform-skew-y)) scaleX(var(--transform-scale-x)) scaleY(var(--transform-scale-y));
   --transform-translate-x: -50%;
   --transform-translate-y: -50%;
+  animation: show 0.2s;
+}
+
+.closeModal{
+  animation-direction: alternate;
+  animation: show 0.2;
 }
 
 .inputCard{
@@ -8397,6 +8403,16 @@ body{
 
 .delay-1000 {
   transition-delay: 1000ms;
+}
+
+@keyframes show{
+  from{
+    transform: scale(0) translate(-50%,-50%);
+    opacity:0;
+  } to{
+    transform:scale(1) translate(-50%,-50%);
+    opacity: 1;
+  }
 }
 
 @media (min-width: 640px) {

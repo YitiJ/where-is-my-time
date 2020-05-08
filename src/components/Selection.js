@@ -29,7 +29,7 @@ class Selection extends React.Component{
       };
     
     hideModal = () => {
-    this.setState({ showNew: false });
+        this.setState({ showNew: false });
     };
 
     handleChange(event){

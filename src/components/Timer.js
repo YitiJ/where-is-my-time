@@ -32,7 +32,7 @@ class Clock extends React.Component{
 
   render(){
     return(
-      <div className={this.props.className + " text-2xl"}>
+      <div className={this.props.className + " text-3xl"}>
         <div className="mt-10">
           Doing: {this.props.task.name}
         </div>

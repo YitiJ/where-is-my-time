@@ -11,6 +11,11 @@ body{
   
 .modal-main {
   @apply fixed w-4/5 h-auto bg-white top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
+  animation: show 0.2s;
+}
+.closeModal{
+  animation-direction: alternate;
+  animation: show 0.2;
 }
 
 .inputCard{
@@ -38,3 +43,13 @@ body{
 }
 
 @tailwind utilities;
+
+@keyframes show{
+  from{
+    transform: scale(0) translate(-50%,-50%);
+    opacity:0;
+  } to{
+    transform:scale(1) translate(-50%,-50%);
+    opacity: 1;
+  }
+}
