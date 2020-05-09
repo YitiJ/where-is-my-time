@@ -10,3 +10,10 @@ export const getTasks = async () => {
     }
     );
 };
+
+export  const addTask = async (name) => {
+    return fetch('/.netlify/functions/addTask',{
+        method: 'post',
+        body: JSON.stringify({name:name})
+    }).then(res => res.json()).then(res=>res.data);
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import {getTasks} from './../dbManager.js'
+import {getTasks,addTask} from './../dbManager.js'
 
 const AddTaskModal = ({handleClose, handleAdd, show, reference}) => {
     if(!show) return (null);
@@ -53,11 +53,13 @@ class Selection extends React.Component{
             ref.current.classList.add("invalidInput");
             return;
         }
-        var options = this.state.options;
-        this.selected={name: input,_id:options.length+1};
-        options.push(this.selected);
-        this.setState({value: input,showStart:true,options:options});
-        this.hideModal();
+        addTask(input).then(res => {
+            var options = this.state.options;
+            this.selected=res;
+            options.push(this.selected);
+            this.setState({value: input,showStart:true,options:options});
+            this.hideModal();
+        });
     }
 
     render(){
