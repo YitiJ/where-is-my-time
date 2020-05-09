@@ -1,4 +1,5 @@
 import React from 'react';
+import {getTasks} from './../dbManager.js'
 
 const AddTaskModal = ({handleClose, handleAdd, show, reference}) => {
     if(!show) return (null);
@@ -14,17 +15,19 @@ const AddTaskModal = ({handleClose, handleAdd, show, reference}) => {
     );
 }
 
-const options=[
-{name:"Homework",key:1},{name:"Minecraft", key:2}
-];
 class Selection extends React.Component{
     constructor(props){
         super(props);
-        this.state = {value: "",showNew: false, showStart:false, options:options};
+        this.state = {value: "",showNew: false, showStart:false, options:[]};
         this.handleChange = this.handleChange.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
         this.modalInputRef = React.createRef();
     }
+
+    componentDidMount(){
+        getTasks().then((res) => this.setState({options:res}));
+    }
+
     showModal = () => {
         this.setState({ showNew: true });
       };
@@ -51,7 +54,7 @@ class Selection extends React.Component{
             return;
         }
         var options = this.state.options;
-        this.selected={name: input,key:options.length+1};
+        this.selected={name: input,_id:options.length+1};
         options.push(this.selected);
         this.setState({value: input,showStart:true,options:options});
         this.hideModal();
@@ -70,7 +73,7 @@ class Selection extends React.Component{
                     <option value="" key="-1" disabled hidden>Please Choose...</option>
                     {this.state.options.map((obj)=>
                         <option
-                            value={obj.name} key={obj.key}>{obj.name}</option>)}
+                            value={obj.name} key={obj._id}>{obj.name}</option>)}
                     <option value="new" key="-2" data-key="-2" className="bg-purple-2">+  Create Task</option>
                 </select>
                 {startButton}
