@@ -1,26 +1,27 @@
 
 export const getTasks = () => {
-    return fetch('/.netlify/functions/readTask',{method:'post'}).then(res => res.json()).then(res =>{
-        var data = res.data;
-        var tasks = [];
-        for(let t of data){
-            tasks.push(t);
-        }
-        return tasks;
-    }
-    );
+    return fetch('/.netlify/functions/readTask',{method:'post'}).then(res => {
+        if(!res.ok) throw Error("Http request error:" + res.status);
+        return res.json()
+    });
 };
 export const addTask = (name) => {
     return fetch('/.netlify/functions/addTask',{
         method: 'post',
         body: JSON.stringify({name:name})
-    }).then(res => res.json()).then(res=>res.data);
+    }).then(res => {
+        if(!res.ok) throw Error("Http request error:" + res.status);
+        return res.json();
+    });
 }
 
 export const findTask = async(id) => {
     return fetch('/.netlify/functions/findTask',{
         method:'post',
         body: id
+    }).then(res=>{
+        if(!res.ok) throw Error("Http request error:" + res.status);
+        return res.json();
     });
 }
 export const addHistory = (taskID,duration,startTime) => {
@@ -33,6 +34,6 @@ export const addHistory = (taskID,duration,startTime) => {
         })
     }).then(res=>{
         if(!res.ok) throw Error("Http request error:" + res.status);
-        res.json();
+        return res.json();
     });
 }

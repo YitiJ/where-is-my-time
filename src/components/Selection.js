@@ -25,7 +25,14 @@ class Selection extends React.Component{
     }
 
     componentDidMount(){
-        getTasks().then((res) => this.setState({options:res}));
+        getTasks().then(res =>{
+            var data = res.data;
+            var options = [];
+            for(let t of data){
+                options.push(t);
+            }
+            this.setState({options:options});
+        });
     }
 
     showModal = () => {
@@ -46,40 +53,45 @@ class Selection extends React.Component{
             this.setState({value: event.target.value, showStart:true});
         }
     }
-    handleAdd(event,ref){
+    async handleAdd(event,ref){
+        //validation
         var input = ref.current.value;
         if(input.length == 0){
             ref.current.placeholder = "Field cannot be empty";
             ref.current.classList.add("invalidInput");
             return;
         }
-        addTask(input).then(res => {
+        try{
+            var res = await addTask(input);
             var options = this.state.options;
-            this.selected=res;
+            this.selected=res.data;
             options.push(this.selected);
             this.setState({value: input,showStart:true,options:options});
             this.hideModal();
-        });
+        }
+        catch(err){
+            console.error(err);
+            alert("Something went wrong when adding task.\n" + err);
+        }
     }
 
-    onStart(event){
-        if(this.selected == null){
-            return;
-        }
-        findTask(this.selected._id).then(res=>{
-            if(res.status != 200){
-
-            } else{
-                res.json().then(res=>{
-                    if(res.data == null){
-
-                    }
-                    else{
-                        this.props.startTimer(event,this.selected);
-                    }
-                });
+    async onStart(event){
+        try{
+            if(this.selected == null){
+                throw Error("No Task Selected: Please refresh your page.");
             }
-        });
+            const res = await findTask(this.selected._id);
+            console.log(res);
+            if(res.data == null){
+                throw Error("Task Not Found: Please refresh your page.");
+            }
+            else{
+                this.props.startTimer(event,this.selected);
+            }
+        }catch(err){
+            console.error(err);
+            alert("Something went wrong when fetching selected task.\n" + err);
+        }
     }
 
     render(){
