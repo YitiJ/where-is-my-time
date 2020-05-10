@@ -1,6 +1,6 @@
 import React from 'react';
 import {getTasks,addTask,findTask} from './../dbManager.js'
-import Loader from 'react-loader-spinner'
+import Spinner from './Spinner'
 
 const AddTaskModal = ({handleClose, handleAdd, show, reference}) => {
     if(!show) return (null);
@@ -110,7 +110,7 @@ class Selection extends React.Component{
             : (null);
         return (
             <div className="relative flex flex-col w-1/3 mx-auto">
-                <Loader type="Circles" color="#9098C6" visible={this.state.loading} className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50"/>
+                <Spinner show={this.state.loading}/>
                 <AddTaskModal show={this.state.showNew} handleClose={this.hideModal} handleAdd={this.handleAdd} reference={this.modalInputRef}/>
                 <select className="flex-auto h-20 px-12 input-blue text-3xl focusBorder rounded-lg"
                 value={this.state.value} onChange={this.handleChange}>
