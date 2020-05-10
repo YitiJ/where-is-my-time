@@ -37,3 +37,16 @@ export const addHistory = (taskID,duration,startTime) => {
         return res.json();
     });
 }
+
+export const findHistory = (startTime,endTime) => {
+    return fetch('/.netlify/functions/findHistory',{
+        method:'post',
+        body: JSON.stringify({
+            startTime:startTime,
+            endTime:endTime
+        })
+    }).then(res=>{
+        if(!res.ok) throw Error("Http request error:" + res.status);
+        return res.json();
+    });
+}

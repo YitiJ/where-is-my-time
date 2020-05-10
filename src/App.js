@@ -1,11 +1,12 @@
 import React from 'react';
-import TimerPage from './TimerPage.js';
+import TimerPage from './components/Page/TimerPage'
+import CalendarPage from './components/Page/CalendarPage'
 
 function App() {
   return (
     <div>
       <Nav/>
-      <TimerPage/>
+      <CalendarPage/>
     </div>
   );
 }

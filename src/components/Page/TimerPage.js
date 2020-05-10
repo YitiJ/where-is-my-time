@@ -1,7 +1,7 @@
 import React from 'react';
-import Clock from './components/Clock.js'
-import Selection from './components/Selection.js'
-import Timer from './components/Timer.js'
+import Clock from '../Clock.js'
+import Selection from '../Selection.js'
+import Timer from '../Timer.js'
 
 class TimerPage extends React.Component{
   constructor(props){

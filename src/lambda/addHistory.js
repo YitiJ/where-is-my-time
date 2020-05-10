@@ -16,7 +16,7 @@ exports.handler = async (event,context) => {
                 _id: id,
                 startTime: data.startTime,
                 duration: data.duration,
-                taskID: data.taskID
+                task: data.taskID
 
             };
         const response ={
