@@ -6,6 +6,7 @@ exports.handler = async (event,context) => {
     context.callbackWaitsForEmptyEventLoop = false;
     try{
         const data = JSON.parse(event.body);
+        if(data.name == "" || data.name == null) throw Error("Invalid task name:" + data.name);
         const name = data.name, id = mongoose.Types.ObjectId();
         const task = {
                 _id: id,

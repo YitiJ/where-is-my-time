@@ -57,7 +57,7 @@ class Selection extends React.Component{
         //validation
         var input = ref.current.value;
         if(input.length == 0){
-            ref.current.placeholder = "Field cannot be empty";
+            ref.current.placeholder = "Invalid operation";
             ref.current.classList.add("invalidInput");
             return;
         }
@@ -70,6 +70,8 @@ class Selection extends React.Component{
             this.hideModal();
         }
         catch(err){
+            ref.current.placeholder = "Invalid operation";
+            ref.current.classList.add("invalidInput");
             console.error(err);
             alert("Something went wrong when adding task.\n" + err);
         }

@@ -34,12 +34,13 @@ class Clock extends React.Component{
   async stopTimer(){
     try{
       const data = await addHistory(this.props.task._id,this.state.time/1000,this.props.start);
+      this.props.stopTimer();
     }
     catch(err){
       console.error(err);
-      alert("Something went wrong when saving your timer.");
+      alert("Something went wrong when saving your timer. Please refresh your page");
     }
-    this.props.stopTimer();
+    
   }
 
   render(){
