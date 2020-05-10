@@ -5,17 +5,14 @@ import db from './server.js'
 exports.handler = async (event,context) => {
     context.callbackWaitsForEmptyEventLoop = false;
     try{
-        const data = JSON.parse(event.body);
-        const name = data.name, id = mongoose.Types.ObjectId();
-        const task = {
-                _id: id,
-                name: name
-            };
+        if(event.body == null){
+            throw Error("Missing _id");
+        }
+        const tasks = await Task.find();
         const response ={
-                msg:"Task added sucessfully",
-                data: task
+                msg:"Task found",
+                data: tasks
             };
-        await Task.create(task);
         return {
             statusCode: 200,
             body: JSON.stringify(response)

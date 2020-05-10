@@ -1,5 +1,5 @@
 import React from 'react';
-import {getTasks,addTask} from './../dbManager.js'
+import {getTasks,addTask,findTask} from './../dbManager.js'
 
 const AddTaskModal = ({handleClose, handleAdd, show, reference}) => {
     if(!show) return (null);
@@ -62,10 +62,30 @@ class Selection extends React.Component{
         });
     }
 
+    onStart(event){
+        if(this.selected == null){
+            return;
+        }
+        findTask(this.selected._id).then(res=>{
+            if(res.status != 200){
+
+            } else{
+                res.json().then(res=>{
+                    if(res.data == null){
+
+                    }
+                    else{
+                        this.props.startTimer(event,this.selected);
+                    }
+                });
+            }
+        });
+    }
+
     render(){
         const startButton = this.state.showStart ?
             <button className="mt-3 px-12 py-3 btn text-blue-4 text-2xl font-bold focusBorder"
-                onClick={(event) => this.props.submitFn(event,this.selected)}>Start</button>
+                onClick={(event) => this.onStart(event)}>Start</button>
             : (null);
         return (
             <div className="relative flex flex-col w-1/3 mx-auto">

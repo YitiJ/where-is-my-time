@@ -1,21 +1,24 @@
 import mongoose from 'mongoose'
-import Task from './Models/Task.js'
+import TaskHistory from './Models/TaskHistory.js'
 import db from './server.js'
 
 exports.handler = async (event,context) => {
     context.callbackWaitsForEmptyEventLoop = false;
     try{
         const data = JSON.parse(event.body);
-        const name = data.name, id = mongoose.Types.ObjectId();
-        const task = {
+        const id = mongoose.Types.ObjectId();
+        const history = {
                 _id: id,
-                name: name
+                startTime: data.startTime,
+                duration: data.duration,
+                taskID: data.taskID
+
             };
         const response ={
-                msg:"Task added sucessfully",
-                data: task
+                msg:"History added sucessfully",
+                data: history
             };
-        await Task.create(task);
+        await TaskHistory.create(history);
         return {
             statusCode: 200,
             body: JSON.stringify(response)

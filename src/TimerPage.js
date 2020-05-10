@@ -12,7 +12,7 @@ class TimerPage extends React.Component{
     this.clockRef = React.createRef();
   }
   render(){
-    const dynamicContent = this.state.start ? <Timer className="text-center" start={Date.now()} task={this.selected} stopTimer={this.stopTimer}/> : <Selection submitFn={this.startTimer}/>;
+    const dynamicContent = this.state.start ? <Timer className="text-center" start={Date.now()} task={this.selected} stopTimer={this.stopTimer}/> : <Selection startTimer={this.startTimer}/>;
     return(
     <div>
         <div ref={this.clockRef} className="text-5xl text-center font-medium transition-spacing ease-in-out duration-700 mt-32">
@@ -34,7 +34,6 @@ class TimerPage extends React.Component{
   stopTimer(){
     this.clockRef.current.classList.toggle("mt-4");
     this.clockRef.current.classList.toggle("mt-32");
-    console.log(this.clockRef);
     this.selected = null;
     this.setState({start: false});
   }
