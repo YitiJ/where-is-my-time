@@ -1,5 +1,6 @@
 import React from 'react';
 import {getTasks,addTask,findTask} from './../dbManager.js'
+import Loader from 'react-loader-spinner'
 
 const AddTaskModal = ({handleClose, handleAdd, show, reference}) => {
     if(!show) return (null);
@@ -18,7 +19,7 @@ const AddTaskModal = ({handleClose, handleAdd, show, reference}) => {
 class Selection extends React.Component{
     constructor(props){
         super(props);
-        this.state = {value: "",showNew: false, showStart:false, options:[]};
+        this.state = {value: "",showNew: false, showStart:false, options:[],loading:true};
         this.handleChange = this.handleChange.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
         this.modalInputRef = React.createRef();
@@ -31,7 +32,10 @@ class Selection extends React.Component{
             for(let t of data){
                 options.push(t);
             }
-            this.setState({options:options});
+            this.setState({options:options,loading:false});
+        }).catch(err=>{
+            console.error(err);
+            alert("Something went wrong when fetching your task.\n" + err);
         });
     }
 
@@ -62,6 +66,7 @@ class Selection extends React.Component{
             return;
         }
         try{
+            this.setState({loading:true});
             var res = await addTask(input);
             var options = this.state.options;
             this.selected=res.data;
@@ -75,6 +80,7 @@ class Selection extends React.Component{
             console.error(err);
             alert("Something went wrong when adding task.\n" + err);
         }
+        this.setState({loading:false});
     }
 
     async onStart(event){
@@ -82,8 +88,8 @@ class Selection extends React.Component{
             if(this.selected == null){
                 throw Error("No Task Selected: Please refresh your page.");
             }
+            this.setState({loading:true});
             const res = await findTask(this.selected._id);
-            console.log(res);
             if(res.data == null){
                 throw Error("Task Not Found: Please refresh your page.");
             }
@@ -93,6 +99,7 @@ class Selection extends React.Component{
         }catch(err){
             console.error(err);
             alert("Something went wrong when fetching selected task.\n" + err);
+            this.setState({loading:false});
         }
     }
 
@@ -103,6 +110,7 @@ class Selection extends React.Component{
             : (null);
         return (
             <div className="relative flex flex-col w-1/3 mx-auto">
+                <Loader type="Circles" color="#9098C6" visible={this.state.loading} className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50"/>
                 <AddTaskModal show={this.state.showNew} handleClose={this.hideModal} handleAdd={this.handleAdd} reference={this.modalInputRef}/>
                 <select className="flex-auto h-20 px-12 input-blue text-3xl focusBorder rounded-lg"
                 value={this.state.value} onChange={this.handleChange}>

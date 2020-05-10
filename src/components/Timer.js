@@ -1,12 +1,14 @@
 import React from 'react';
 import {addHistory} from './../dbManager.js'
+import Loader from 'react-loader-spinner'
 
 class Clock extends React.Component{
 
   constructor(props){
     super(props);
     this.state ={
-        time: 0
+        time: 0,
+        loading:false
     }
     this.stopTimer = this.stopTimer.bind(this);
   }
@@ -33,6 +35,7 @@ class Clock extends React.Component{
 
   async stopTimer(){
     try{
+      this.setState({loading:true});
       const data = await addHistory(this.props.task._id,this.state.time/1000,this.props.start);
       this.props.stopTimer();
     }
@@ -40,12 +43,12 @@ class Clock extends React.Component{
       console.error(err);
       alert("Something went wrong when saving your timer. Please refresh your page");
     }
-    
   }
 
   render(){
     return(
       <div className={this.props.className + " text-3xl"}>
+        <Loader type="Circles" color="#9098C6" visible={this.state.loading} className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
         <div className="mt-10">
           Doing: {this.props.task.name}
         </div>
