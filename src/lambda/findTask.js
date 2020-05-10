@@ -8,7 +8,7 @@ exports.handler = async (event,context) => {
         if(event.body == null){
             throw Error("Missing _id");
         }
-        const tasks = await Task.find();
+        const tasks = await Task.findById(event.body);
         const response ={
                 msg:"Task found",
                 data: tasks
