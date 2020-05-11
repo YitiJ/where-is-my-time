@@ -8,7 +8,7 @@ const formatTime = (time)=>{
     return new Date(time*1000).toISOString().substr(11,8);
 }
 
-const TaskLog = ({historyList})=>{
+const TaskLog = ({historyList,className})=>{
     if(historyList == null || historyList.length == 0) return (null);
     var tasks = [];
     var name = [];
@@ -23,23 +23,52 @@ const TaskLog = ({historyList})=>{
     for(var key in tasks){
         if(tasks.hasOwnProperty(key)){
             inner.push(
-                <div key={key}>Task: {name[key]}, Time Spent: {formatTime(tasks[key])}</div>
+                <div key={key} className="flex flex-row">
+                    <div className="w-2/3">{name[key]}</div>
+                    <div className="w-1/3">{formatTime(tasks[key])}</div>
+                </div>
             );
         }
     }
-    return inner;
+    return (
+        <div className={className + " flex flex-col py-2 px-4"}>
+            <div className="text-center">Total Time Spent on Tasks</div>
+            <div className="flex flex-row">
+                <div className="w-2/3">Task Name</div>
+                <div className="w-1/3">Time Spent</div>
+            </div>
+            {inner}
+        </div>);
     
 }
 
-const TimeLog = ({historyList})=>{
+const TimeLog = ({historyList,className})=>{
     if(historyList == null || historyList.length == 0) return (null);
     var inner = [];
     for(let his of historyList){
         inner.push(
-        <div key={his._id}> Start Time: {moment(his.startTime).format("ddd MMM Do YYYY, h:mm a")}, Task: {his.task.name}</div>
+            <div key={his._id} className="flex flex-row">
+                <div className="w-1/2">
+                    {moment(his.startTime).format("ddd MMM Do YYYY, h:mm a")}
+                </div>
+                <div className="w-1/4">{his.task.name}</div>
+                <div className="w-1/4">{formatTime(his.duration)}</div>
+            </div>
         );
     }
-    return inner;
+    return (
+        <div className={className}>
+            <div className={"flex flex-col flex-initial bg-blue-4 rounded-md py-2 px-4"}>
+                <div className="text-center">Time Log</div>
+                <div className="flex flex-row">
+                    <div className="w-1/2">Time</div>
+                    <div className="w-1/4">Name</div>
+                    <div className="w-1/4">Duration</div>
+                </div>
+                {inner}
+            </div>
+        </div>
+        );
 }
 class CalendarPage extends React.Component{
     constructor(props){
@@ -55,25 +84,28 @@ class CalendarPage extends React.Component{
 
     render(){
         const button = this.state.startDate != null && this.state.endDate != null ?
-            <button className="mt-3 px-12 py-3 btn text-blue-4 text-2xl font-bold focusBorder"
+            <button className="ml-3 px-12 py-3 btn text-blue-4 text-lg font-bold focusBorder align-middle"
             onClick={this.submitDate}>Submit</button>
         : (null);
         return (
-            <div>
-                <DateRangePicker
-                startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-                startDateId="START_DATE" // PropTypes.string.isRequired,
-                endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-                endDateId="END_DATE" // PropTypes.string.isRequired,
-                onDatesChange={({startDate,endDate})=>this.setState({startDate,endDate})} // PropTypes.func.isRequired,
-                focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-                onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
-                isOutsideRange={()=>false}
-                minimumNights={0}
-                />
-                {button}
-                <TimeLog historyList={this.state.list}/>
-                <TaskLog historyList={this.state.list}/>
+            <div className="mt-10 mx-10 flex flex-row">
+                <div>
+                    <div className="text-xl">Select Range:</div>
+                    <DateRangePicker
+                    startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+                    startDateId="START_DATE" // PropTypes.string.isRequired,
+                    endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+                    endDateId="END_DATE" // PropTypes.string.isRequired,
+                    onDatesChange={({startDate,endDate})=>this.setState({startDate,endDate})} // PropTypes.func.isRequired,
+                    focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+                    onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
+                    isOutsideRange={()=>false}
+                    minimumNights={0}
+                    />
+                    {button}
+                    <TaskLog className="mt-6" historyList={this.state.list}/>
+                </div>
+                <TimeLog className="flex-auto ml-16" historyList={this.state.list}/>
             </div>
         );
     }
