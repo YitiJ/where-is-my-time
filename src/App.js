@@ -1,6 +1,7 @@
 import React from 'react';
 import TimerPage from './components/Page/TimerPage'
 import CalendarPage from './components/Page/CalendarPage'
+import SettingPage from './components/Page/SettingPage'
 import {
   BrowserRouter as Router,
   Switch,
@@ -15,6 +16,9 @@ function App() {
       <Switch>
         <Route path="/calendar">
           <CalendarPage />
+        </Route>
+        <Route path="/setting">
+          <TimerPage />
         </Route>
         <Route path="/">
           <TimerPage />
