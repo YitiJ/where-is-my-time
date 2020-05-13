@@ -86,7 +86,7 @@ class CalendarPage extends React.Component{
             this.setState({list:data});
             this.setState({loading:false});
         }catch(err){
-            console.err(err);
+            console.error(err);
             alert("Something went wrong when querying task\n"+ err);
         }
     }
