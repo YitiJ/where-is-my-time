@@ -78,18 +78,16 @@ class CalendarPage extends React.Component{
     }
 
     async submitDate(){
+        if(this.state.startDate == null || this.state.endDate == null) return;
         const data = (await findHistory(this.state.startDate.startOf('day').valueOf(),this.state.endDate.endOf('day').valueOf())).data;
         this.setState({list:data});
     }
 
     render(){
-        const button = this.state.startDate != null && this.state.endDate != null ?
-            <button className="ml-3 px-12 py-3 btn text-blue-4 text-lg font-bold focusBorder align-middle"
-            onClick={this.submitDate}>Submit</button>
-        : (null);
+        const btnclass = this.state.startDate != null && this.state.endDate != null ? "" : " opacity-50 cursor-not-allowed";
         return (
             <div className="mt-10 mx-10 flex flex-row">
-                <div>
+                <div className="mx-auto">
                     <div className="text-xl">Select Range:</div>
                     <DateRangePicker
                     startDate={this.state.startDate} // momentPropTypes.momentObj or null,
@@ -102,7 +100,8 @@ class CalendarPage extends React.Component{
                     isOutsideRange={()=>false}
                     minimumNights={0}
                     />
-                    {button}
+                    <button className={"ml-3 px-12 py-3 btn text-blue-4 text-lg font-bold focusBorder align-middle" + btnclass}
+                        onClick={this.submitDate}>Submit</button>
                     <TaskLog className="mt-6" historyList={this.state.list}/>
                 </div>
                 <TimeLog className="flex-auto ml-16" historyList={this.state.list}/>
