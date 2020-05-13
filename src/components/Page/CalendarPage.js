@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment'
 import { DateRangePicker,} from 'react-dates';
 import {findHistory} from './../../dbManager';
+import Spinner from './../Spinner'
 import 'react-dates/lib/css/_datepicker.css';
 
 const formatTime = (time)=>{
@@ -9,7 +10,7 @@ const formatTime = (time)=>{
 }
 
 const TaskLog = ({historyList,className})=>{
-    if(historyList == null || historyList.length == 0) return (null);
+    if(historyList == null || historyList.length == 0) return <div className="text-center">no task found in range</div>;
     var tasks = [];
     var name = [];
     for(let h of historyList){
@@ -73,15 +74,17 @@ const TimeLog = ({historyList,className})=>{
 class CalendarPage extends React.Component{
     constructor(props){
         super(props);
-        this.state = {};
+        this.state = {loading:false};
         this.submitDate = this.submitDate.bind(this);
     }
 
     async submitDate(){
         if(this.state.startDate == null || this.state.endDate == null) return;
         try{
+            this.setState({loading:true});
             const data = (await findHistory(this.state.startDate.startOf('day').valueOf(),this.state.endDate.endOf('day').valueOf())).data;
             this.setState({list:data});
+            this.setState({loading:false});
         }catch(err){
             console.err(err);
             alert("Something went wrong when querying task\n"+ err);
@@ -92,6 +95,7 @@ class CalendarPage extends React.Component{
         const btnclass = this.state.startDate != null && this.state.endDate != null ? "" : " opacity-50 cursor-not-allowed";
         return (
             <div className="mt-10 mx-10 flex flex-row">
+                <Spinner show={this.state.loading}/>
                 <div className="mx-auto">
                     <div className="text-xl">Select Range:</div>
                     <DateRangePicker
