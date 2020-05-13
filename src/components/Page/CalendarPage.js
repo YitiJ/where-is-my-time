@@ -79,8 +79,13 @@ class CalendarPage extends React.Component{
 
     async submitDate(){
         if(this.state.startDate == null || this.state.endDate == null) return;
-        const data = (await findHistory(this.state.startDate.startOf('day').valueOf(),this.state.endDate.endOf('day').valueOf())).data;
-        this.setState({list:data});
+        try{
+            const data = (await findHistory(this.state.startDate.startOf('day').valueOf(),this.state.endDate.endOf('day').valueOf())).data;
+            this.setState({list:data});
+        }catch(err){
+            console.err(err);
+            alert("Something went wrong when querying task\n"+ err);
+        }
     }
 
     render(){
