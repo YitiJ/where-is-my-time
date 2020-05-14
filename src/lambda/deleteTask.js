@@ -1,28 +1,23 @@
 import mongoose from 'mongoose'
 import Task from './Models/Task.js'
+import TaskHistory from './models/TaskHistory.js'
 import db from './server.js'
 
 exports.handler = async (event,context) => {
     context.callbackWaitsForEmptyEventLoop = false;
     try{
         const data = JSON.parse(event.body);
-        const task = await Task.findById(data.taskID);
-        if(task == null){
-            throw("TaskID does not exist. Cannot add history.");
+        var his = await TaskHistory.find({task:data._id});
+        if(his == null || his.length == 0){
+            data.deleted = true;
+            await Task.findByIdAndUpdate(data._id,data);
         }
-        const id = mongoose.Types.ObjectId();
-        const history = {
-                _id: id,
-                startTime: data.startTime,
-                duration: data.duration,
-                task: data.taskID
-
-            };
+        else{
+            await Task.findByIdAndDelete(data._id);
+        }
         const response ={
-                msg:"History added sucessfully",
-                data: history
+                msg:"Task deleted sucessfully"
             };
-        await TaskHistory.create(history);
         return {
             statusCode: 200,
             body: JSON.stringify(response)

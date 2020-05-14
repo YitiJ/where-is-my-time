@@ -1,5 +1,5 @@
 import React from 'react';
-import {getTasks,editTask} from './../../dbManager'
+import {getTasks,editTask,deleteTask} from './../../dbManager'
 import Spinner from './../Spinner'
 
 
@@ -98,8 +98,26 @@ class SettingPage extends React.Component{
         }
         this.setState({loading:false});
     }
-    onDelete(task){
-        console.log("deleting" + task._id);
+    async onDelete(task){
+        try{
+            this.state.loading = true;
+            await deleteTask(task);
+            this.closeDeleteModal();
+            try{
+                const index = this.state.tasks.indexOf(task);
+                var tasks = this.state.tasks;
+                tasks.splice(index,1)
+                this.setState({tasks:tasks,loading:false});
+            }
+            catch(err){
+                console.error(err);
+                alert("Something went wrong when getting task.\n" + err);
+            }
+        }
+        catch(err){
+            console.error(err);
+            alert("Something went wron when deletin task.\n" + err);
+        }
     }
 
     openEditModal(task){

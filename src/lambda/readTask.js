@@ -5,7 +5,7 @@ import db from './server.js'
 exports.handler = async (event,context) => {
     context.callbackWaitsForEmptyEventLoop = false;
     try{
-        const tasks = await Task.find();
+        const tasks = await Task.find({deleted: false});
         const response ={
                 msg:"Task found",
                 data: tasks

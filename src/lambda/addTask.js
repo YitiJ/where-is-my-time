@@ -10,7 +10,8 @@ exports.handler = async (event,context) => {
         const name = data.name, id = mongoose.Types.ObjectId();
         const task = {
                 _id: id,
-                name: name
+                name: name,
+                deleted: false
             };
         const response ={
                 msg:"Task added sucessfully",
