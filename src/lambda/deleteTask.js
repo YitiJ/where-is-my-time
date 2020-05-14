@@ -8,7 +8,7 @@ exports.handler = async (event,context) => {
     try{
         const data = JSON.parse(event.body);
         var his = await TaskHistory.find({task:data._id});
-        if(his == null || his.length == 0){
+        if(his != null && his.length != 0){
             data.deleted = true;
             await Task.findByIdAndUpdate(data._id,data);
         }

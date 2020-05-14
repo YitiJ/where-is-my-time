@@ -100,7 +100,7 @@ class SettingPage extends React.Component{
     }
     async onDelete(task){
         try{
-            this.state.loading = true;
+            this.setState({loading: true});
             await deleteTask(task);
             this.closeDeleteModal();
             try{
