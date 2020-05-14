@@ -1,5 +1,6 @@
 import React from 'react';
 import {getTasks} from './../../dbManager'
+import Spinner from './../Spinner'
 
 
 function EditTaskModal({task,closeFn, saveFn, show, reference}){
@@ -44,7 +45,7 @@ class SettingPage extends React.Component{
 
     constructor(props){
         super(props);
-        this.state={tasks:[],showEdit:false,showDelete:false};
+        this.state={tasks:[],showEdit:false,showDelete:false,loading:true};
         this.onDelete = this.onDelete.bind(this);
         this.onSave = this.onSave.bind(this);
         this.openEditModal = this.openEditModal.bind(this);
@@ -92,6 +93,7 @@ class SettingPage extends React.Component{
         const content = this.state.tasks.map((task)=> <Row key={task._id} task={task} editFn={this.openEditModal} deleteFn={this.openDeleteModal}/>);
         return(
             <div className="flex p-4 text-blue-5">
+                <Spinner show={this.state.loading} />
                 <EditTaskModal closeFn={this.closeEditModal} show={this.state.showEdit} saveFn={this.onSave} task={this.state.task} reference={this.modalInputRef}/>
                 <DeleteTaskModal closeFn={this.closeDeleteModal} show={this.state.showDelete} deleteFn={this.onDelete} task={this.state.task}/>
                 <div className="bg-blue-3 w-1/5 h-1/2-screen py-3 px-8 rounded-md overflow-y-auto mr-4">
