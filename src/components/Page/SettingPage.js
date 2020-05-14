@@ -81,6 +81,15 @@ class SettingPage extends React.Component{
             task.name = input;
             await editTask(task);
             this.closeEditModal();
+            try{
+                var tasks = this.state.tasks;
+                tasks[tasks.indexOf(task)] = task;
+                this.setState({tasks: tasks,loading:false});
+            }
+            catch(err){
+                console.error(err);
+                alert("Something went wrong when getting task.\n" + err);
+            }
         }
         catch(err){
             this.modalInputRef.current.placeholder = "Invalid operation";
@@ -88,15 +97,6 @@ class SettingPage extends React.Component{
             console.error(err);
             alert("Something went wrong when editing task.\n" + err);
         }
-        try{
-            var tasks = (await getTasks()).data;
-            this.setState({tasks: tasks});
-        }
-        catch(err){
-            console.error(err);
-            alert("Something went wrong when getting task.\n" + err);
-        }
-        this.setState({loading:false});
     }
     async onDelete(task){
         try{
