@@ -24,6 +24,17 @@ export const findTask = async(id) => {
         return res.json();
     });
 }
+
+export const editTask = async(task) => {
+    return fetch('/.netlify/functions/editTask',{
+        method:'post',
+        body: JSON.stringify(task)
+    }).then(res=>{
+        if(!res.ok) throw Error("Http request error:" + res.status);
+        return res.json();
+    });
+}
+
 export const addHistory = (taskID,duration,startTime) => {
     return fetch('/.netlify/functions/addHistory',{
         method:'post',

@@ -6,23 +6,10 @@ exports.handler = async (event,context) => {
     context.callbackWaitsForEmptyEventLoop = false;
     try{
         const data = JSON.parse(event.body);
-        const task = await Task.findById(data.taskID);
-        if(task == null){
-            throw("TaskID does not exist. Cannot add history.");
-        }
-        const id = mongoose.Types.ObjectId();
-        const history = {
-                _id: id,
-                startTime: data.startTime,
-                duration: data.duration,
-                task: data.taskID
-
-            };
+        await Task.findByIdAndUpdate(data._id,data);
         const response ={
-                msg:"History added sucessfully",
-                data: history
+                msg:"Task edited sucessfully"
             };
-        await TaskHistory.create(history);
         return {
             statusCode: 200,
             body: JSON.stringify(response)

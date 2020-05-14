@@ -1,5 +1,5 @@
 import React from 'react';
-import {getTasks} from './../../dbManager'
+import {getTasks,editTask} from './../../dbManager'
 import Spinner from './../Spinner'
 
 
@@ -68,8 +68,35 @@ class SettingPage extends React.Component{
             alert("Something went wrong when fetching your task.\n" + err);
         });
     }
-    onSave(task){
-        console.log("saving" + task._id);
+    async onSave(task){
+        //validation
+        var input = this.modalInputRef.current.value;
+        if(input.length == 0){
+            this.modalInputRef.current.placeholder = "Invalid operation";
+            this.modalInputRef.current.classList.add("invalidInput");
+            return;
+        }
+        try{
+            this.setState({loading:true});
+            task.name = input;
+            await editTask(task);
+            this.closeEditModal();
+        }
+        catch(err){
+            this.modalInputRef.current.placeholder = "Invalid operation";
+            this.modalInputRef.current.classList.add("invalidInput");
+            console.error(err);
+            alert("Something went wrong when editing task.\n" + err);
+        }
+        try{
+            var tasks = (await getTasks()).data;
+            this.setState({tasks: tasks});
+        }
+        catch(err){
+            console.error(err);
+            alert("Something went wrong when getting task.\n" + err);
+        }
+        this.setState({loading:false});
     }
     onDelete(task){
         console.log("deleting" + task._id);
