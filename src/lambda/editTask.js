@@ -6,6 +6,7 @@ exports.handler = async (event,context) => {
     context.callbackWaitsForEmptyEventLoop = false;
     try{
         const data = JSON.parse(event.body);
+        if(data.name == "" || data.name == null) throw Error("Invalid task name:" + data.name);
         await Task.findByIdAndUpdate(data._id,data);
         const response ={
                 msg:"Task edited sucessfully"
