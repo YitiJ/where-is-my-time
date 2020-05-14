@@ -18,7 +18,7 @@ function App() {
           <CalendarPage />
         </Route>
         <Route path="/setting">
-          <TimerPage />
+          <SettingPage />
         </Route>
         <Route path="/">
           <TimerPage />

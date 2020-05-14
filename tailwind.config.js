@@ -13,6 +13,7 @@ module.exports = {
         2:"#CED2E8",
         3:"#9FA9DC",
         4:"#505571",
+        5:"#292A33"
       },
       gray:{
         1:"#747474",
@@ -31,6 +32,9 @@ module.exports = {
       },
       transitionProperty:{
         'spacing': 'margin, padding',
+      },
+      height:{
+        '1/2-screen':'38vh'
       }
     },
   },
