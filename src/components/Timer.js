@@ -10,7 +10,9 @@ class Clock extends React.Component{
         time: 0,
         loading:false
     }
+    this.cancel = false;
     this.stopTimer = this.stopTimer.bind(this);
+    this.onCancel = this.onCancel.bind(this);
   }
 
   componentDidMount(){
@@ -21,6 +23,9 @@ class Clock extends React.Component{
   }
   componentWillUnmount(){
     clearInterval(this.timerID);
+    if(!this.cancel){
+      this.save();
+    }
   }
 
   tick(){
@@ -33,11 +38,19 @@ class Clock extends React.Component{
       return new Date(time).toISOString().substr(11,8);
   }
 
-  async stopTimer(){
+  onCancel(){
+    this.cancel = true;
+    this.stopTimer();
+  }
+
+  stopTimer(){
+    this.props.stopTimer();
+  }
+
+  async save(){
     try{
       this.setState({loading:true});
       await addHistory(this.props.task._id,this.state.time/1000,this.props.start);
-      this.props.stopTimer();
     }
     catch(err){
       console.error(err);
@@ -55,7 +68,8 @@ class Clock extends React.Component{
         <div>
           {this.formatTime(this.state.time)}
         </div>
-        <button onClick={this.stopTimer} className="btn text-blue-4 font-bold py-1 px-4 mt-4 focusBorder">End</button>
+        <button onClick={this.stopTimer} className="btn text-blue-4 font-bold py-1 px-4 mt-4 mr-3 focusBorder">End</button>
+        <button onClick={this.onCancel} className="btn bg-red-2 text-red-3 font-bold py-1 px-4 mt-4 focusBorder">Cancel</button>
       </div>
     );
   }
