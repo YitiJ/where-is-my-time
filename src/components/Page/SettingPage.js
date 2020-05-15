@@ -20,9 +20,11 @@ function DeleteTaskModal({task,closeFn, deleteFn, show}){
     if(!show) return (null);
     return (
       <div className="modal">
-        <div className="modal-main rounded-lg text-gray-1">
-            <div className="text-gray-1 text-4xl mx-8">Are you sure to delete {task.name} ?</div>
-            <button className="mx-8 px-6 py-3 text-3xl btn text-white font-medium focusBorder" onClick={() => deleteFn(task)}>Delete</button>
+        <div className="modal-main rounded-lg text-gray-1 py-12">
+            <div className="text-gray-1 text-4xl text-center">Are you sure to delete {task.name}?</div>
+            <div className="text-center mt-3">
+                <button className="btn bg-red-2 text-red-3 text-center px-6 py-3 text-3xl text-white font-medium focusBorder" onClick={() => deleteFn(task)}>Delete</button>
+            </div>
             <button className="absolute top-0 right-0 p-4 text-2xl focusBorder rounded-lg" onClick={() => closeFn()}>Close</button>
         </div>
       </div>
