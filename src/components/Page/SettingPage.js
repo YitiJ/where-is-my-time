@@ -9,8 +9,8 @@ function EditTaskModal({task,closeFn, saveFn, show, reference}){
       <div className="modal">
         <div className="modal-main rounded-lg text-gray-1">
             <label htmlFor="new" className="text-gray-1 text-4xl mx-8">Task Name:</label>
-            <input  ref={reference} id="new" className="h-20 w-1/2 my-20 px-4 input-white text-3xl focusBorder" placeholder="Task Name" onFocus={() => {reference.current.classList.remove("invalidInput");reference.current.placeholder = "Task Name"}}></input>
-            <button className="mx-8 px-6 py-3 text-3xl btn text-white font-medium focusBorder" onClick={() => saveFn(task)}>Add</button>
+            <input  ref={reference} id="new" className="h-20 w-1/2 my-20 px-4 input-white text-3xl focusBorder" placeholder="Task Name" value={task.name} onFocus={() => {reference.current.classList.remove("invalidInput");reference.current.placeholder = "Task Name"}}></input>
+            <button className="mx-8 px-6 py-3 text-3xl btn text-white font-medium focusBorder" onClick={() => saveFn(task)}>Save</button>
             <button className="absolute top-0 right-0 p-4 text-2xl focusBorder rounded-lg" onClick={() => closeFn()}>Close</button>
         </div>
       </div>
