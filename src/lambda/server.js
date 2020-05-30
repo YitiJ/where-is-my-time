@@ -14,4 +14,6 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 db.once('open', function() {
   console.log("db opened");
 });
+require("./models/Task");
+require("./models/TaskHistory");
 export default db
