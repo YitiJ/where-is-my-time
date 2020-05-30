@@ -5,6 +5,10 @@ Scheduler, in web application (Renamed to Where is My Time)
 
 Production: https://where-is-my-time.netlify.app/
 
-Development: https://dev--where-is-my-time.netlify.app/
+## What does it do?
+* **Timer** to track your current task
+* **User-defined** todo, task
+* **MongoDB** to store todos, and histories
+* Query your task log with a **calendar**, accumulated duration and sorted by start time
 
 Origional Repo: https://github.com/YitiJ/scheduler
