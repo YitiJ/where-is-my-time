@@ -68,6 +68,7 @@ class SettingPage extends React.Component{
         }).catch(err=>{
             console.error(err);
             alert("Something went wrong when fetching your task.\n" + err);
+            this.setState({loading:false});
         });
     }
     async onSave(task){
@@ -91,6 +92,7 @@ class SettingPage extends React.Component{
             catch(err){
                 console.error(err);
                 alert("Something went wrong when getting task.\n" + err);
+                this.setState({loading:false});
             }
         }
         catch(err){
@@ -98,6 +100,7 @@ class SettingPage extends React.Component{
             this.modalInputRef.current.classList.add("invalidInput");
             console.error(err);
             alert("Something went wrong when editing task.\n" + err);
+            this.setState({loading:false});
         }
     }
     async onDelete(task){
@@ -114,11 +117,13 @@ class SettingPage extends React.Component{
             catch(err){
                 console.error(err);
                 alert("Something went wrong when getting task.\n" + err);
+                this.setState({loading:false});
             }
         }
         catch(err){
             console.error(err);
             alert("Something went wron when deletin task.\n" + err);
+            this.setState({loading:false});
         }
     }
 

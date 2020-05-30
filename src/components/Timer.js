@@ -55,6 +55,7 @@ class Clock extends React.Component{
     catch(err){
       console.error(err);
       alert("Something went wrong when saving your timer. Please refresh your page");
+      this.setState({loading:false});
     }
   }
 
