@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import Task from './Models/Task.js'
+import Task from './models/Task.js'
 import db from './server.js'
 
 exports.handler = async (event,context) => {
